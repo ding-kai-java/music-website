@@ -81,6 +81,11 @@
             <!-- 这个需要为 true 热部署才有效 -->
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>4.9.9</version>
+        </dependency>
 
         <!--页面视图依赖-->
         <!--        <dependency>-->
