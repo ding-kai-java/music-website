@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class MusicOrderServiceImpl implements MusicOrderService {
 
-
     @Value("${APP_ID}")
     private String appId;
 
@@ -40,29 +39,33 @@ public class MusicOrderServiceImpl implements MusicOrderService {
     @Autowired
     private MusicOrderMapper musicOrderMapper;
 
-
     @Transactional
     @Override
     public String doPay(MusicOrder musicOrder) {
         String form = "";
+        int num = musicOrderMapper.insert(musicOrder);
+        if(num > 0){
+            //获得初始化的AlipayClient
+            AlipayClient alipayClient = new DefaultAlipayClient(serverUrl, appId, appPrivateKey, appFormat, charset, aliPayPublicKey, signType);
+            //创建API对应的request
+            AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
+            alipayRequest.setReturnUrl("http://localhost:8888/success");
+            //在公共参数中设置回跳和通知地址
+            alipayRequest.setNotifyUrl("http://localhost:8888/notify.action");
+            alipayRequest.setBizContent("  {" +
+                    "    \"total_amount\":" + musicOrder.getTotalAmount() + "," +
+                    "    \"out_trade_no\":'" + musicOrder.getOrderNo() + "'," +
+                    "   \"product_code\":'"+musicOrder.getProductCode()+"'," +
+                    "   \"subject\":'"+musicOrder.getSubject()+"'" +
+                    " }"); //填充业务参数
 
-        AlipayClient alipayClient = new DefaultAlipayClient(serverUrl, appId, appPrivateKey, appFormat, charset, aliPayPublicKey, signType);  //获得初始化的AlipayClient
-        AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest(); //创建API对应的request
-        alipayRequest.setReturnUrl("http://localhost:8888/success");
-        alipayRequest.setNotifyUrl("http://localhost:8888/notify.action"); //在公共参数中设置回跳和通知地址
-        alipayRequest.setBizContent("  {" +
-                "    \"total_amount\":" + musicOrder.getTotalAmount() + "," +
-                "    \"out_trade_no\":'" + musicOrder.getOrderNo() + "'," +
-                "   \"product_code\":\"FAST_INSTANT_TRADE_PAY\"," +
-                "   \"subject\":\"下载音乐付费\"" +
-                " }"); //填充业务参数
-
-        try {
-            form = alipayClient.pageExecute(alipayRequest).getBody();  //调用SDK生成表单
-        } catch (AlipayApiException e) {
-            e.printStackTrace();
+            try {
+                //调用SDK生成表单
+                form = alipayClient.pageExecute(alipayRequest).getBody();
+            } catch (AlipayApiException e) {
+                e.printStackTrace();
+            }
         }
-
         return form;
     }
 }
