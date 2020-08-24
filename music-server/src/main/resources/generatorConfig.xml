@@ -5,7 +5,7 @@
 <generatorConfiguration>
 
   <!-- 本地数据库驱动程序jar包的全路径 -->
-  <classPathEntry location="/Users/hongweiyin/Documents/github-workspace/music-website/music-server/src/main/resources/mysql-connector-java-8.0.13.jar"/>
+  <classPathEntry location="E:/dingkai/music-website/music-server/src/main/resources/mysql-connector-java-8.0.13.jar"/>
 
   <context id="context" targetRuntime="MyBatis3">
     <commentGenerator>
@@ -37,7 +37,7 @@
     </javaClientGenerator>
 
     <!--相关表的配置 -->
-    <table tableName="admin" domainObjectName="Admin" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+    <!--<table tableName="admin" domainObjectName="Admin" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
     <table tableName="collect" domainObjectName="Collect" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
     <table tableName="comment" domainObjectName="Comment" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
     <table tableName="consumer" domainObjectName="Consumer" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
@@ -45,7 +45,8 @@
     <table tableName="rank" domainObjectName="Rank" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
     <table tableName="singer" domainObjectName="Singer" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
     <table tableName="song" domainObjectName="Song" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
-    <table tableName="song_list" domainObjectName="SongList" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+    <table tableName="song_list" domainObjectName="SongList" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>-->
 
+    <table tableName="music_order" domainObjectName="MusicOrder" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
   </context>
 </generatorConfiguration>

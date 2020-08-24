@@ -285,3 +285,16 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2020-04-05 22:05:53
+
+
+CREATE TABLE `music_order` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `song_id` int(10) unsigned NOT NULL DEFAULT 0  COMMENT '歌曲ID',
+   `order_no` varchar(45) NOT NULL DEFAULT ''  COMMENT '订单编号' ,
+  `product_code` varchar(45) NOT NULL DEFAULT '' COMMENT '产品编码',
+  `total_amount`  decimal(10,0) unsigned NOT NULL DEFAULT '0' COMMENT '支付金额' ,
+  `subject` varchar(200) NOT NULL DEFAULT '' COMMENT '描述',
+  `create_time`  datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '发行时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8;
