@@ -18,10 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 public class MusicOrderControler {
@@ -44,17 +41,17 @@ public class MusicOrderControler {
     @ResponseBody
     @RequestMapping(value = "/musicOrder/saveOrder", method = RequestMethod.GET)
     public String saveOrder(HttpServletRequest req){
-        String songId = req.getParameter("songId").trim();
+        /*String songId = req.getParameter("songId").trim();
         String totalAmount = req.getParameter("totalAmount").trim();
-        String musicName = req.getParameter("name").trim();
+        String musicName = req.getParameter("name").trim();*/
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         String orderNo = simpleDateFormat.format(Calendar.getInstance().getTime());
 
         MusicOrder musicOrder = new MusicOrder();
         musicOrder.setOrderNo(orderNo);
-        musicOrder.setSongId(Integer.parseInt(songId));
+        musicOrder.setSongId(Integer.parseInt("1"));
         musicOrder.setProductCode("FAST_INSTANT_TRADE_PAY");
-        musicOrder.setSubject("下载"+ musicName);
+        musicOrder.setSubject("下载");
         musicOrder.setTotalAmount(new BigDecimal(20));
         musicOrder.setCreateTime(new Date());
         musicOrder.setUpdateTime(new Date());
@@ -68,9 +65,19 @@ public class MusicOrderControler {
         System.out.println("接收到支付宝的异步通知请求——");
         Map<String, String[]> parameterMap = request.getParameterMap();
         System.out.println(parameterMap);
-        Map<String,String> map = new HashMap<>();
+        Map<String,String> params  = new HashMap<>();
+        for (Iterator<String> iter = parameterMap.keySet().iterator(); iter.hasNext();) {
+            String name = (String) iter.next();
+            String[] values = (String[]) parameterMap.get(name);
+            String valueStr = "";
+            for (int i = 0; i < values.length; i++) {
+                valueStr = (i == values.length - 1) ? valueStr + values[i]
+                        : valueStr + values[i] + ",";
+            }
+            params.put(name, valueStr);
+        }
         try {
-            boolean signVerified = AlipaySignature.rsaCheckV1(map, aliPayPublicKey, charset, signType);
+            boolean signVerified = AlipaySignature.rsaCheckV1(params, aliPayPublicKey, charset, signType);
             if(signVerified){
                 MusicOrder musicOrder = new MusicOrder();
                 musicOrder.setPayStatus(1);

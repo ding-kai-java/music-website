@@ -51,7 +51,7 @@ public class MusicOrderServiceImpl implements MusicOrderService {
             AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
             alipayRequest.setReturnUrl("http://localhost:8888/success");
             //在公共参数中设置回跳和通知地址
-            alipayRequest.setNotifyUrl("http://localhost:8888/notify.action");
+            alipayRequest.setNotifyUrl("http://dk2020.free.idcfengye.com/notify");
             alipayRequest.setBizContent("  {" +
                     "    \"total_amount\":" + musicOrder.getTotalAmount() + "," +
                     "    \"out_trade_no\":'" + musicOrder.getOrderNo() + "'," +
