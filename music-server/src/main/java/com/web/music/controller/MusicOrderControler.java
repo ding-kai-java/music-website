@@ -81,6 +81,8 @@ public class MusicOrderControler {
             if(signVerified){
                 MusicOrder musicOrder = new MusicOrder();
                 musicOrder.setPayStatus(1);
+                //TODO 暂且
+                musicOrder.setOrderNo("1");
                 musicOrderMapper.updateByPrimaryKeySelective(musicOrder);
                 return "异步 success";
             } else{
