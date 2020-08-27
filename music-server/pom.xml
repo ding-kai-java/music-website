@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.web</groupId>
-    <artifactId>music</artifactId>
+    <artifactId>music-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>my-music</name>
+    <name>music-server</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
